@@ -1,0 +1,5 @@
+run.config:
+  engine: elixir-1.5
+
+web.main:
+  start: "iex -S mix"

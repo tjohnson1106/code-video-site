@@ -9,13 +9,9 @@ defmodule VideoSite.Application do
   end
 
   def start_cowboy() do
-    route1 = {"/", VideoSite.Web.PageHandler, :base}
-    route2 = {"/2", VideoSite.Web.PageHandler, :too}
-    route3 = {"/contact", VideoSite.Web.PageHandler, :contact}
-    route4 = {"/secret", VideoSite.Web.PageHandler, :secret}
-    others = {:_, VideoSite.Web.PageHandler, :others}
+    route1 = {:_, VideoSite.Web.PageHandler, []}
 
-    dispatch = :cowboy_router.compile([{:_, [route1, route2, route3, route4, others]}])
+    dispatch = :cowboy_router.compile([{:_, [route1]}])
 
     opts = [port: 4000]
     env = [dispatch: dispatch]
