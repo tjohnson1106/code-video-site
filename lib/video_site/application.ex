@@ -9,9 +9,11 @@ defmodule VideoSite.Application do
   end
 
   def start_cowboy() do
-    route1 = {:_, VideoSite.Web.PageHandler, []}
+    root_path = {"/", :cowboy_static, {:priv_file, :video_site, "static/index.html"}}
+    static_route = {"/[...]", :cowboy_static, {:priv_dir, :video_site, "static"}}
+    main_route = {:_, VideoSite.Web.PageHandler, VideoSite.Web.Router}
 
-    dispatch = :cowboy_router.compile([{:_, [route1]}])
+    dispatch = :cowboy_router.compile([{:_, [root_path, static_route, main_route]}])
 
     opts = [port: 4000]
     env = [dispatch: dispatch]
